@@ -24,10 +24,7 @@ namespace MapViewer
 
         private void MainWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if(e.Key == System.Windows.Input.Key.Space)
-            {
-                Mapview.SetViewpointRotationAsync(Mapview.MapRotation + 3);
-            }
+
         }
 
         private void ButtonMapRead(object sender, RoutedEventArgs e)
@@ -60,6 +57,11 @@ namespace MapViewer
             map.InitialViewpoint = new Viewpoint(initialLatitude, initialLongitude, initialScale);
             vModel.Map = map;
 
+        }
+        private void RotationSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var slider = sender as System.Windows.Controls.Slider;
+            Mapview.SetViewpointRotationAsync(slider.Value * 36);
         }
 
     }
