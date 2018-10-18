@@ -1,17 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Esri.ArcGISRuntime.Mapping;
 
 namespace MapViewer
 {
     class MapManager
     {
-        static public string ReadMap(string path)
+        static public Map ReadMap(string path)
         {
-            
-            return path;
+            // Path to the local package (.tpk file).
+            string myDocumentsFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string tileCachePath = System.IO.Path.Combine(myDocumentsFolder, "test.tpk");
+
+
+            // Create a tile cache from the local data.
+            TileCache cache = new TileCache(tileCachePath);
+
+
+            // Use the tile cache to create an ArcGISTiledLayer.
+            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(cache);
+
+            // Display the tiled layer as a basemap.
+            var map = new Map(new Basemap(tiledLayer));
+
+
+            return map;
         }
     }
 }
